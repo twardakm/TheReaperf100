@@ -1,4 +1,7 @@
 #include "SysTick.h"
+#include "data.h"
+
+extern volatile Data globalData;
 
 void initializeSysTick()
 {
@@ -13,4 +16,9 @@ void initializeSysTick()
 void SysTick_Handler(void)
 {
    LED5_GPIO->ODR ^= LED5_PIN;
+
+   // check connection
+   if (globalData.communication_safety == NULL)
+	   safeStop();
+   globalData.communication_safety = 0;
 }

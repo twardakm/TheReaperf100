@@ -25,7 +25,7 @@ void initializePWMTimer()
 
 	TIM2->CCMR1 |= TIM_OCMode_PWM2 | TIM_OCMode_PWM2 << 8;
 
-	TIM2->CCER |= TIM_OCPolarity_Low | TIM_CCER_CC1E; //Enable, inverted polarity
+	TIM2->CCER |= TIM_CCER_CC1E; //Enable, normal polarity
 
 	// TIM2->CCR1 to control motor PWM
 
@@ -52,12 +52,21 @@ void initializeDirectionOutput()
 	GPIO_InitTypeDef dir;
 	dir.GPIO_Mode = GPIO_Mode_Out_PP;
 	dir.GPIO_Speed = GPIO_Speed_2MHz;
-	dir.GPIO_Pin = MOTOR1_DIR_PIN;
-	GPIO_Init(MOTOR1_DIR_GPIO, &dir);
+	dir.GPIO_Pin = MOTOR1_DIR2_PIN;
+	GPIO_Init(MOTOR1_DIR2_GPIO, &dir);
 
-	dir.GPIO_Pin = MOTOR1_EN_PIN;
-	GPIO_Init(MOTOR1_EN_GPIO, &dir);
+	dir.GPIO_Pin = MOTOR1_DIR1_PIN;
+	GPIO_Init(MOTOR1_DIR1_GPIO, &dir);
 
-	MOTOR1_DIR_GPIO->ODR &= ~(MOTOR1_DIR_PIN);
-	MOTOR1_EN_GPIO->ODR |= (MOTOR1_EN_PIN);
+	dir.GPIO_Pin = GPIO_Pin_1;
+	GPIO_Init(GPIOC, &dir);
+
+	MOTOR1_DIR2_GPIO->ODR &= ~(MOTOR1_DIR2_PIN);
+	MOTOR1_DIR1_GPIO->ODR &= ~(MOTOR1_DIR1_PIN);
+}
+
+void safeStop()
+{
+	TIM2->CCR1 = 0; // stop motor
+	TIM3->CCR2 = 127+255;
 }

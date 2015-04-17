@@ -13,7 +13,7 @@
 #include "motor.h"
 #include "ADC.h"
 
-extern volatile Data data;
+extern volatile Data globalData;
 
 void Set24MHzHSI();
 

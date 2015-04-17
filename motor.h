@@ -10,5 +10,6 @@
 
 void initializePWMTimer();
 void initializeDirectionOutput();
+void safeStop();
 
 #endif

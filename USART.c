@@ -1,6 +1,8 @@
 #include "USART.h"
 #include "data.h"
 
+extern volatile Data globalData;
+
 void initializeUSART()
 {
 	/*
@@ -72,7 +74,8 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 	/* RXNE handler */
 	if(USART_GetITStatus(USARTx, USART_IT_RXNE) != RESET)
 	{
-		LED4_GPIO->ODR ^= LED4_PIN;
+		globalData.communication_safety = 1;
+		//LED4_GPIO->ODR ^= LED4_PIN;
 		//Disable interrupt until all data is received
 		USARTx->CR1 &= ~USART_CR1_RXNEIE;
 
@@ -127,9 +130,15 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 					{
 						// if the oldest bit is 1 set direction to 1
 						if (data & (0b1 << 7))
-							MOTOR1_DIR_GPIO->ODR |= MOTOR1_DIR_PIN;
+						{
+							MOTOR1_DIR2_GPIO->ODR |= MOTOR1_DIR2_PIN;
+							MOTOR1_DIR1_GPIO->ODR &= ~(MOTOR1_DIR1_PIN);
+						}
 						else
-							MOTOR1_DIR_GPIO->ODR &= ~(MOTOR1_DIR_PIN);
+						{
+							MOTOR1_DIR2_GPIO->ODR &= ~(MOTOR1_DIR2_PIN);
+							MOTOR1_DIR1_GPIO->ODR |= MOTOR1_DIR1_PIN;
+						}
 						// first bit as direction
 						data &= ~(0b1 << 7);
 						TIM2->CCR1 = data;
@@ -168,10 +177,9 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 				 * 1 byte servo current - 0 - 0, 255 - 3 A ?
 				 * 1 byte line feed
 				 */
-				extern volatile Data data;
 
 				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = data.battery_level;
+				USARTx->DR = globalData.battery_level;
 				while((USARTx->SR & USART_SR_TXE) == RESET);
 				USARTx->DR = 'b';
 				while((USARTx->SR & USART_SR_TXE) == RESET);

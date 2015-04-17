@@ -1,6 +1,6 @@
 #include "ADC.h"
 
-extern volatile Data data;
+extern volatile Data globalData;
 
 void initializeADC()
 {
@@ -33,14 +33,14 @@ void ADC1_2_IRQHandler(void)
 	if(ADC1->SR & ADC_SR_EOC)
 	{
 		// it should be done via DMA (with multichannel)
-		data.battery_level_sum += (ADC1->DR >> 4);
-		data.sample++;
+		globalData.battery_level_sum += (ADC1->DR >> 4);
+		globalData.sample++;
 
-		if (data.sample == 255)
+		if (globalData.sample == 255)
 		{
-			data.sample = 0;
-			data.battery_level = data.battery_level_sum >> 8;
-			data.battery_level_sum = 0;
+			globalData.sample = 0;
+			globalData.battery_level = globalData.battery_level_sum >> 8;
+			globalData.battery_level_sum = 0;
 		}
 	}
 }
