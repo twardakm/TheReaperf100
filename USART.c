@@ -162,14 +162,19 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 			default:
 				break;
 			}
+			//Enable receive interrupt
+			USARTx->CR1 |= USART_CR1_RXNEIE;
 		}
 		else if (data == 0xAA) //Send back data
 		{
 			while((USARTx->SR & USART_FLAG_RXNE) == RESET) {}
 			if (USARTx->DR == 0x0A)
 			{
+				USARTx->DR = 0xFF;
+				USARTx->CR1 |= USART_CR1_TXEIE; // enable transmit interrupt
 				/*
 				 * Send data
+				 * 1 byte start byte: 0xFF
 				 * 1 byte battery level - 0 - 0%, 255 - 100%
 				 * 1 byte accelerometer y - 127 - 0
 				 * 1 byte accelerometer x - 127 - 0
@@ -177,19 +182,6 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 				 * 1 byte servo current - 0 - 0, 255 - 3 A ?
 				 * 1 byte line feed
 				 */
-
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = globalData.battery_level;
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = 'b';
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = 'c';
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = 'd';
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				USARTx->DR = 'e';
-				while((USARTx->SR & USART_SR_TXE) == RESET);
-				sendLineFeed(USARTx);
 			}
 		}
 		else
@@ -198,8 +190,26 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 			USARTx->CR1 |= USART_CR1_RXNEIE;
 			return;
 		}
+	}
 
-		//Enable interrupt
+	else if(USART_GetITStatus(USARTx, USART_IT_TXE) != RESET)
+	{
+		//Disable transmit interrupt
+		USARTx->CR1 &= ~(USART_CR1_TXEIE);
+
+		USARTx->DR = globalData.battery_level;
+		while((USARTx->SR & USART_SR_TXE) == RESET);
+		USARTx->DR = 'b';
+		while((USARTx->SR & USART_SR_TXE) == RESET);
+		USARTx->DR = 'c';
+		while((USARTx->SR & USART_SR_TXE) == RESET);
+		USARTx->DR = 'd';
+		while((USARTx->SR & USART_SR_TXE) == RESET);
+		USARTx->DR = 'e';
+		while((USARTx->SR & USART_SR_TXE) == RESET);
+		sendLineFeed(USARTx);
+
+		//Enable receive interrupt
 		USARTx->CR1 |= USART_CR1_RXNEIE;
 	}
 }
