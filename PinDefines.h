@@ -49,4 +49,8 @@
 #define ADC_GPIO	GPIOC
 #define ADC_BATTERY_PIN	GPIO_Pin_0
 
+#define I2C2_GPIO	GPIOB
+#define I2C2_SCL_PIN	GPIO_Pin_10
+#define I2C2_SDA_PIN	GPIO_Pin_11
+
 #endif

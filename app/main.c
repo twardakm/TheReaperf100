@@ -12,6 +12,7 @@
 #include "NVIC.h"
 #include "motor.h"
 #include "ADC.h"
+#include "I2C.h"
 
 extern volatile Data globalData;
 
@@ -30,10 +31,12 @@ int main(void)
 	initializeDirectionOutput();
 
 	initializeUSART();
+	initializeI2C();
 
 	initializeADC();
 
 	initializeNVIC();
+
     while(1)
     {
     }

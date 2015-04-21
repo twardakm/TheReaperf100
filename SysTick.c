@@ -1,6 +1,7 @@
 #include "SysTick.h"
 #include "data.h"
 #include "motor.h"
+#include "I2C.h"
 
 extern volatile Data globalData;
 
