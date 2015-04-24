@@ -176,12 +176,17 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 				 * Send data
 				 * 1 byte start byte: 0xFF
 				 * 1 byte battery level - 0 - 0%, 255 - 100%
-				 * 1 byte accelerometer y - 127 - 0
-				 * 1 byte accelerometer x - 127 - 0
-				 * 1 byte motor current - 0 - 0, 255 - 15 A
 				 * 1 byte servo current - 0 - 0, 255 - 3 A ?
+				 * 1 byte motor current - 0 - 0, 255 - 15 A
+				 * 1 byte accelerometer x - 127 - 0
+				 * 1 byte accelerometer y - 127 - 0
 				 * 1 byte line feed
 				 */
+				int8_t buffor[2];
+
+				readI2C(I2C2, ACC_I2C, 0x04, 2, buffor); // Receive data from accelerometer
+				globalData.acc_x = buffor[0];
+				globalData.acc_y = buffor[1];
 			}
 		}
 		else
@@ -203,9 +208,9 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 		while((USARTx->SR & USART_SR_TXE) == RESET);
 		USARTx->DR = 'c';
 		while((USARTx->SR & USART_SR_TXE) == RESET);
-		USARTx->DR = 'd';
+		USARTx->DR = globalData.acc_x;
 		while((USARTx->SR & USART_SR_TXE) == RESET);
-		USARTx->DR = 'e';
+		USARTx->DR = globalData.acc_y;
 		while((USARTx->SR & USART_SR_TXE) == RESET);
 		sendLineFeed(USARTx);
 
