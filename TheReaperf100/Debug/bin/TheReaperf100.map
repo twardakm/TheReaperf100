@@ -39,9 +39,9 @@ Discarded input sections
  .bss           0x00000000        0x0 ..\obj\LED.o
  .data          0x00000000        0x0 ..\obj\stm32f10x_usart.o
  .bss           0x00000000        0x0 ..\obj\stm32f10x_usart.o
+ .bss           0x00000000        0x0 ..\obj\stm32f10x_rcc.o
  .data          0x00000000        0x0 ..\obj\NVIC.o
  .bss           0x00000000        0x0 ..\obj\NVIC.o
- .bss           0x00000000        0x0 ..\obj\stm32f10x_rcc.o
  .data          0x00000000        0x0 ..\obj\misc.o
  .bss           0x00000000        0x0 ..\obj\misc.o
  .text          0x00000000       0xd0 ..\obj\stm32f10x_crc.o
@@ -414,41 +414,41 @@ LOAD d:/programs/gnu tools arm embedded/4.9 2015q1/bin/../lib/gcc/arm-none-eabi/
                 0x08000a04                USART_ClearFlag
                 0x08000a24                USART_GetITStatus
                 0x08000adc                USART_ClearITPendingBit
- .text          0x08000b14       0x44 ..\obj\NVIC.o
-                0x08000b14                initializeNVIC
- .text          0x08000b58      0x7dc ..\obj\stm32f10x_rcc.o
-                0x08000b58                RCC_DeInit
-                0x08000bb4                RCC_HSEConfig
-                0x08000c10                RCC_WaitForHSEStartUp
-                0x08000c60                RCC_AdjustHSICalibrationValue
-                0x08000c9c                RCC_HSICmd
-                0x08000cbc                RCC_PLLConfig
-                0x08000cf8                RCC_PLLCmd
-                0x08000d18                RCC_SYSCLKConfig
-                0x08000d50                RCC_GetSYSCLKSource
-                0x08000d70                RCC_HCLKConfig
-                0x08000da8                RCC_PCLK1Config
-                0x08000de0                RCC_PCLK2Config
-                0x08000e18                RCC_ITConfig
-                0x08000e64                RCC_USBCLKConfig
-                0x08000e80                RCC_ADCCLKConfig
-                0x08000eb8                RCC_LSEConfig
-                0x08000ef8                RCC_LSICmd
-                0x08000f18                RCC_RTCCLKConfig
-                0x08000f3c                RCC_RTCCLKCmd
-                0x08000f5c                RCC_GetClocksFreq
-                0x080010c0                RCC_AHBPeriphClockCmd
-                0x080010fc                RCC_APB2PeriphClockCmd
-                0x08001138                RCC_APB1PeriphClockCmd
-                0x08001174                RCC_APB2PeriphResetCmd
-                0x080011b0                RCC_APB1PeriphResetCmd
-                0x080011ec                RCC_BackupResetCmd
-                0x0800120c                RCC_ClockSecuritySystemCmd
-                0x0800122c                RCC_MCOConfig
-                0x0800124c                RCC_GetFlagStatus
-                0x080012c0                RCC_ClearFlag
-                0x080012dc                RCC_GetITStatus
-                0x08001314                RCC_ClearITPendingBit
+ .text          0x08000b14      0x7dc ..\obj\stm32f10x_rcc.o
+                0x08000b14                RCC_DeInit
+                0x08000b70                RCC_HSEConfig
+                0x08000bcc                RCC_WaitForHSEStartUp
+                0x08000c1c                RCC_AdjustHSICalibrationValue
+                0x08000c58                RCC_HSICmd
+                0x08000c78                RCC_PLLConfig
+                0x08000cb4                RCC_PLLCmd
+                0x08000cd4                RCC_SYSCLKConfig
+                0x08000d0c                RCC_GetSYSCLKSource
+                0x08000d2c                RCC_HCLKConfig
+                0x08000d64                RCC_PCLK1Config
+                0x08000d9c                RCC_PCLK2Config
+                0x08000dd4                RCC_ITConfig
+                0x08000e20                RCC_USBCLKConfig
+                0x08000e3c                RCC_ADCCLKConfig
+                0x08000e74                RCC_LSEConfig
+                0x08000eb4                RCC_LSICmd
+                0x08000ed4                RCC_RTCCLKConfig
+                0x08000ef8                RCC_RTCCLKCmd
+                0x08000f18                RCC_GetClocksFreq
+                0x0800107c                RCC_AHBPeriphClockCmd
+                0x080010b8                RCC_APB2PeriphClockCmd
+                0x080010f4                RCC_APB1PeriphClockCmd
+                0x08001130                RCC_APB2PeriphResetCmd
+                0x0800116c                RCC_APB1PeriphResetCmd
+                0x080011a8                RCC_BackupResetCmd
+                0x080011c8                RCC_ClockSecuritySystemCmd
+                0x080011e8                RCC_MCOConfig
+                0x08001208                RCC_GetFlagStatus
+                0x0800127c                RCC_ClearFlag
+                0x08001298                RCC_GetITStatus
+                0x080012d0                RCC_ClearITPendingBit
+ .text          0x080012f0       0x44 ..\obj\NVIC.o
+                0x080012f0                initializeNVIC
  .text          0x08001334      0x18c ..\obj\misc.o
                 0x08001334                NVIC_PriorityGroupConfig
                 0x08001358                NVIC_Init
@@ -727,8 +727,8 @@ LOAD d:/programs/gnu tools arm embedded/4.9 2015q1/bin/../lib/gcc/arm-none-eabi/
                 0x00000001                ASSERT ((__StackLimit >= __HeapLimit), region ram  overflowed with stack)
 LOAD ..\obj\LED.o
 LOAD ..\obj\stm32f10x_usart.o
-LOAD ..\obj\NVIC.o
 LOAD ..\obj\stm32f10x_rcc.o
+LOAD ..\obj\NVIC.o
 LOAD ..\obj\misc.o
 LOAD ..\obj\stm32f10x_crc.o
 LOAD ..\obj\stm32f10x_wwdg.o
@@ -780,9 +780,9 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
  .ARM.attributes
                 0x0000007d       0x33 ..\obj\stm32f10x_usart.o
  .ARM.attributes
-                0x000000b0       0x33 ..\obj\NVIC.o
+                0x000000b0       0x33 ..\obj\stm32f10x_rcc.o
  .ARM.attributes
-                0x000000e3       0x33 ..\obj\stm32f10x_rcc.o
+                0x000000e3       0x33 ..\obj\NVIC.o
  .ARM.attributes
                 0x00000116       0x33 ..\obj\misc.o
  .ARM.attributes
@@ -826,8 +826,8 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
  .comment       0x00000000       0x70 ..\obj\LED.o
                                  0x71 (size before relaxing)
  .comment       0x00000000       0x71 ..\obj\stm32f10x_usart.o
- .comment       0x00000000       0x71 ..\obj\NVIC.o
  .comment       0x00000000       0x71 ..\obj\stm32f10x_rcc.o
+ .comment       0x00000000       0x71 ..\obj\NVIC.o
  .comment       0x00000000       0x71 ..\obj\misc.o
  .comment       0x00000000       0x71 ..\obj\stm32f10x_gpio.o
  .comment       0x00000000       0x71 ..\obj\USART.o
@@ -843,8 +843,8 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
 .debug_info     0x00000000     0x5489
  .debug_info    0x00000000      0x216 ..\obj\LED.o
  .debug_info    0x00000216      0x9e8 ..\obj\stm32f10x_usart.o
- .debug_info    0x00000bfe      0x2a4 ..\obj\NVIC.o
- .debug_info    0x00000ea2      0x88d ..\obj\stm32f10x_rcc.o
+ .debug_info    0x00000bfe      0x88d ..\obj\stm32f10x_rcc.o
+ .debug_info    0x0000148b      0x2a4 ..\obj\NVIC.o
  .debug_info    0x0000172f      0x53d ..\obj\misc.o
  .debug_info    0x00001c6c      0x6e7 ..\obj\stm32f10x_gpio.o
  .debug_info    0x00002353      0xab5 ..\obj\USART.o
@@ -861,8 +861,8 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
 .debug_abbrev   0x00000000     0x12d9
  .debug_abbrev  0x00000000       0xe0 ..\obj\LED.o
  .debug_abbrev  0x000000e0      0x162 ..\obj\stm32f10x_usart.o
- .debug_abbrev  0x00000242       0xc4 ..\obj\NVIC.o
- .debug_abbrev  0x00000306      0x1ba ..\obj\stm32f10x_rcc.o
+ .debug_abbrev  0x00000242      0x1ba ..\obj\stm32f10x_rcc.o
+ .debug_abbrev  0x000003fc       0xc4 ..\obj\NVIC.o
  .debug_abbrev  0x000004c0      0x145 ..\obj\misc.o
  .debug_abbrev  0x00000605      0x1c8 ..\obj\stm32f10x_gpio.o
  .debug_abbrev  0x000007cd      0x211 ..\obj\USART.o
@@ -882,9 +882,9 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
  .debug_aranges
                 0x00000020       0x20 ..\obj\stm32f10x_usart.o
  .debug_aranges
-                0x00000040       0x20 ..\obj\NVIC.o
+                0x00000040       0x20 ..\obj\stm32f10x_rcc.o
  .debug_aranges
-                0x00000060       0x20 ..\obj\stm32f10x_rcc.o
+                0x00000060       0x20 ..\obj\NVIC.o
  .debug_aranges
                 0x00000080       0x20 ..\obj\misc.o
  .debug_aranges
@@ -913,8 +913,8 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
 .debug_line     0x00000000     0x2562
  .debug_line    0x00000000      0x21a ..\obj\LED.o
  .debug_line    0x0000021a      0x30e ..\obj\stm32f10x_usart.o
- .debug_line    0x00000528      0x200 ..\obj\NVIC.o
- .debug_line    0x00000728      0x312 ..\obj\stm32f10x_rcc.o
+ .debug_line    0x00000528      0x312 ..\obj\stm32f10x_rcc.o
+ .debug_line    0x0000083a      0x200 ..\obj\NVIC.o
  .debug_line    0x00000a3a      0x1f1 ..\obj\misc.o
  .debug_line    0x00000c2b      0x2b7 ..\obj\stm32f10x_gpio.o
  .debug_line    0x00000ee2      0x322 ..\obj\USART.o
@@ -933,10 +933,10 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
                                 0x2eb (size before relaxing)
  .debug_str     0x00000298      0x54c ..\obj\stm32f10x_usart.o
                                 0x6b6 (size before relaxing)
- .debug_str     0x000007e4      0x38e ..\obj\NVIC.o
-                                0x538 (size before relaxing)
- .debug_str     0x00000b72      0x420 ..\obj\stm32f10x_rcc.o
+ .debug_str     0x000007e4      0x420 ..\obj\stm32f10x_rcc.o
                                 0x640 (size before relaxing)
+ .debug_str     0x00000c04      0x38e ..\obj\NVIC.o
+                                0x538 (size before relaxing)
  .debug_str     0x00000f92      0x1de ..\obj\misc.o
                                 0x3e4 (size before relaxing)
  .debug_str     0x00001170      0x290 ..\obj\stm32f10x_gpio.o
@@ -963,8 +963,8 @@ OUTPUT(TheReaperf100.elf elf32-littlearm)
 .debug_frame    0x00000000     0x176c
  .debug_frame   0x00000000       0x34 ..\obj\LED.o
  .debug_frame   0x00000034      0x490 ..\obj\stm32f10x_usart.o
- .debug_frame   0x000004c4       0x34 ..\obj\NVIC.o
- .debug_frame   0x000004f8      0x4f4 ..\obj\stm32f10x_rcc.o
+ .debug_frame   0x000004c4      0x4f4 ..\obj\stm32f10x_rcc.o
+ .debug_frame   0x000009b8       0x34 ..\obj\NVIC.o
  .debug_frame   0x000009ec       0xd8 ..\obj\misc.o
  .debug_frame   0x00000ac4      0x2d0 ..\obj\stm32f10x_gpio.o
  .debug_frame   0x00000d94       0xe4 ..\obj\USART.o

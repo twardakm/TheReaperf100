@@ -11,7 +11,7 @@ void initializeSysTick()
 	 * Interrupt every 1s:
 	 * 24 MHz / 8 = 3 -> count to 3000000
 	 */
-	SysTick_Config(3000000ul);
+	SysTick_Config(600000ul);
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
 }
 

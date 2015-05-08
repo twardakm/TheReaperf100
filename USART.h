@@ -9,6 +9,7 @@
 #include "PinDefines.h"
 #include "data.h"
 #include "I2C.h"
+#include "motor.h"
 
 extern volatile Data data;
 

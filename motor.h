@@ -8,6 +8,8 @@
 #include "stm32f10x_gpio.h"
 #include "stm32f10x_tim.h"
 
+#define SERVO_COMPENSATION -30
+
 void initializePWMTimer();
 void initializeDirectionOutput();
 void safeStop();

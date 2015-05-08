@@ -38,7 +38,8 @@ void initializeUSART()
 
 	USART_InitTypeDef usart_conf;
 
-	usart_conf.USART_BaudRate=9600;
+	// usart_conf.USART_BaudRate=9600; HC-05
+	usart_conf.USART_BaudRate = 19200; // BTM 222
 	usart_conf.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
 	usart_conf.USART_Mode=USART_Mode_Rx | USART_Mode_Tx;
 	usart_conf.USART_Parity=USART_Parity_No;
@@ -156,7 +157,7 @@ void USARTInterrupt(USART_TypeDef *USARTx)
 					//wait until line feed
 					while((USARTx->SR & USART_FLAG_RXNE) == RESET) {}
 					if (USARTx->DR == 0x0A)
-						TIM3->CCR2 = data + 255; // + 255 because 0 means 1 ms not 0
+						TIM3->CCR2 = (data + SERVO_COMPENSATION) + 255; // + 255 because 0 means 1 ms not 0
 				}
 				break;
 			default:

@@ -43,7 +43,7 @@ void initializePWMTimer()
 
 	// 1,5 ms
 	// TIM3->CCR2 for servo PWM
-	TIM3->CCR2 = 127 + 255;
+	TIM3->CCR2 = (127 + SERVO_COMPENSATION) + 255;
 }
 
 void initializeDirectionOutput()
